@@ -1,3 +1,4 @@
+// Load the hardware
 require('tesselate') ({
   modules: {
     A: ['ambient-attx4', 'ambientL'],
@@ -7,17 +8,14 @@ require('tesselate') ({
   var left = modules.ambientL;
   var right = modules.ambientR;
   var car = require('servo-car').use(tessel.port['B'], function () {
-    console.log('Ready.')
-
-    var leftTriggered = false;
-    var rightTriggered = false;
-
+    // Start the device (define trigger values in this function, below)
     reset();
     console.log('Just sitting here minding my own business...');
 
+    // When we get a sound, on either side, run away
     left.on('sound-trigger', function(data) {
+      left.clearSoundTrigger();
       console.log('Left triggered', data);
-      leftTriggered = true;
       car.right();
       setTimeout(function () {
         setTimeout(function () {
@@ -26,8 +24,8 @@ require('tesselate') ({
       }, 500);
     });
     right.on('sound-trigger', function (data) {
+      right.clearSoundTrigger();
       console.log('Right triggered', data);
-      rightTriggered = true;
       car.left();
       setTimeout(function () {
         car.back();
@@ -37,25 +35,9 @@ require('tesselate') ({
       }, 500);
     });
 
-    function react () {
-      clearInterval(usual);
-      if (leftTriggered) {
-        car.right();
-        setTimeout(function () {
-          reset();
-        }, 500);
-      } else if (rightTriggered) {
-        car.left();
-        setTimeout(function () {
-          reset();
-        }, 500);
-      }
-    }
-
+    // Once we've reacted, stop running and wait for triggers again
     function reset () {
       car.stop();
-      leftTriggered = false;
-      rightTriggered = false;
       left.setSoundTrigger(0.1243);
       right.setSoundTrigger(0.1113);
     }
