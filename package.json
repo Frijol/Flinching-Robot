@@ -1,0 +1,34 @@
+{
+  "name": "Flinching-Robot",
+  "version": "1.0.0",
+  "description": "Tessel-powered robot car that flinches away from loud noises.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Frijol/Flinching-Robot.git"
+  },
+  "keywords": [
+    "tessel",
+    "flinch",
+    "animal",
+    "reactive",
+    "robot",
+    "ambient",
+    "noise",
+    "sound"
+  ],
+  "author": "Kelsey Breseman",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/Frijol/Flinching-Robot/issues"
+  },
+  "homepage": "https://github.com/Frijol/Flinching-Robot",
+  "dependencies": {
+    "ambient-attx4": "^0.2.4",
+    "servo-car": "^1.0.0",
+    "tesselate": "0.0.2"
+  }
+}
